@@ -22,35 +22,25 @@ function App() {
       <div className="main-bg"></div>
       <div className="container">
         <div className="row">
-          <div className="col-md-4">
-            <img
-              src="https://codingapple1.github.io/shop/shoes1.jpg"
-              width="80%"
-              alt="shoes1"
-            />
-            <h4>상품명</h4>
-            <p>상품정보</p>
-          </div>
-          <div className="col-md-4">
-            <img
-              src="https://codingapple1.github.io/shop/shoes2.jpg"
-              width="80%"
-              alt="shoes2"
-            />
-            <h4>상품명</h4>
-            <p>상품정보</p>
-          </div>
-          <div className="col-md-4">
-            <img
-              src="https://codingapple1.github.io/shop/shoes3.jpg"
-              width="80%"
-              alt="shoes3"
-            />
-            <h4>상품명</h4>
-            <p>상품정보</p>
-          </div>
+          {shoes.map((a, i) => {
+            return <Card shoes={shoes[i]} i={i + 1}></Card>;
+          })}
         </div>
       </div>
+    </div>
+  );
+}
+
+function Card(props) {
+  return (
+    <div className="col-md-4">
+      <img
+        src={'https://codingapple1.github.io/shop/shoes' + props.i + '.jpg'}
+        width="80%"
+        alt={'shoes' + props.i}
+      />
+      <h4>{props.shoes.title}</h4>
+      <p>{props.shoes.price}</p>
     </div>
   );
 }

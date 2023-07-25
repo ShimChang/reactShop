@@ -1,5 +1,4 @@
-let a = ['kim', 20];
-let b = { name: 'kim', age: 20 };
+
 
 let data = [
   {

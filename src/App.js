@@ -4,6 +4,8 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import data from './data';
+import { Routes, Route, Link } from 'react-router-dom';
+import Detail from './routes/Detail';
 
 function App() {
   let [shoes] = useState(data);
@@ -19,14 +21,32 @@ function App() {
         </Container>
       </Navbar>
 
-      <div className="main-bg"></div>
-      <div className="container">
-        <div className="row">
-          {shoes.map((a, i) => {
-            return <Card shoes={shoes[i]} i={i + 1}></Card>;
+      <Link to="/">home</Link>
+      <Link to="/detail">detail</Link>
+
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <div className="main-bg"></div>
+              <div className="container">
+                <div className="row">
+                  {shoes.map((a, i) => {
+                    return <Card shoes={shoes[i]} i={i}></Card>;
+                  })}
+                </div>
+              </div>
+            </>
+          }
+        />
+        <Route
+          path="/detail"
+          element={shoes.map((a, i) => {
+            return <Detail shoes={shoes[i]} i={i}></Detail>;
           })}
-        </div>
-      </div>
+        />
+      </Routes>
     </div>
   );
 }
@@ -35,7 +55,9 @@ function Card(props) {
   return (
     <div className="col-md-4">
       <img
-        src={'https://codingapple1.github.io/shop/shoes' + props.i + '.jpg'}
+        src={
+          'https://codingapple1.github.io/shop/shoes' + (props.i + 1) + '.jpg'
+        }
         width="80%"
         alt={'shoes' + props.i}
       />

@@ -4,25 +4,37 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import data from './data';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import Detail from './routes/Detail';
 
 function App() {
   let [shoes] = useState(data);
+  let navigate = useNavigate();
   return (
     <div className="App">
       <Navbar bg="dark" data-bs-theme="dark">
         <Container>
           <Navbar.Brand href="#home">ShoeShop</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Cart</Nav.Link>
+            <Nav.Link
+              onClick={() => {
+                navigate('/');
+              }}
+              href="#home"
+            >
+              Home
+            </Nav.Link>
+            <Nav.Link
+              onClick={() => {
+                navigate('/detail');
+              }}
+              href="#features"
+            >
+              Detail
+            </Nav.Link>
           </Nav>
         </Container>
       </Navbar>
-
-      <Link to="/">home</Link>
-      <Link to="/detail">detail</Link>
 
       <Routes>
         <Route
@@ -40,12 +52,7 @@ function App() {
             </>
           }
         />
-        <Route
-          path="/detail"
-          element={shoes.map((a, i) => {
-            return <Detail shoes={shoes[i]} i={i}></Detail>;
-          })}
-        />
+        <Route path="/detail" element={<Detail shoes={shoes} />} />
       </Routes>
     </div>
   );

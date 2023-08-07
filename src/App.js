@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -6,10 +6,12 @@ import Navbar from 'react-bootstrap/Navbar';
 import data from './data';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import Detail from './routes/Detail';
+import axios from 'axios';
 
 function App() {
-  let [shoes] = useState(data);
+  let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
+
   return (
     <div className="App">
       <Navbar bg="dark" data-bs-theme="dark">
@@ -49,10 +51,22 @@ function App() {
                   })}
                 </div>
               </div>
+              <button
+                onClick={() => {
+                  axios
+                    .get('https://codingapple1.github.io/shop/data2.json')
+                    .then((result) => {
+                      let copy = [...shoes, ...result.data];
+                      setShoes(copy);
+                    });
+                }}
+              >
+                더보기
+              </button>
             </>
           }
         />
-        <Route path="/detail" element={<Detail shoes={shoes} />} />
+        <Route path="/detail/:id" element={<Detail shoes={shoes} />} />
       </Routes>
     </div>
   );
